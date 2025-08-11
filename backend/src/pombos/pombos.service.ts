@@ -17,15 +17,15 @@ export class PombosService {
     return this.pombosRepository.save(pombo);
   }
 
-  findAll() {
-    return `This action returns all pombos`;
+  findAll(): Promise<Pombo[]> {
+    return this.pombosRepository.find();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} pombo`;
   }
 
-  update(id: number /*, updatePomboDto: UpdatePomboDto*/) {
+  update(id: number) {
     return `This action updates a #${id} pombo`;
   }
 
