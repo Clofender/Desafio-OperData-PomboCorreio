@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePomboDto } from './dto/create-pombo.dto';
 import { Pombo } from './entities/pombo.entity';
+import { UpdatePomboDto } from './dto/update-pombo.dto';
 
 @Injectable()
 export class PombosService {
@@ -32,8 +33,17 @@ export class PombosService {
     return pombo;
   }
 
-  update(id: number) {
-    return `This action updates a #${id} pombo`;
+  async update(id: string, updatePomboDto: UpdatePomboDto): Promise<Pombo> {
+    const pombo = await this.pombosRepository.preload({
+      id: id,
+      ...updatePomboDto,
+    });
+
+    if (!pombo) {
+      throw new NotFoundException(`Pombo com ID "${id}" não encontrado.`);
+    }
+
+    return this.pombosRepository.save(pombo);
   }
 
   remove(id: number) {
