@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePomboDto } from './dto/create-pombo.dto';
@@ -21,8 +21,15 @@ export class PombosService {
     return this.pombosRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pombo`;
+  // buscar por id
+  async findOne(id: string): Promise<Pombo> {
+    const pombo = await this.pombosRepository.findOneBy({ id: id });
+
+    if (!pombo) {
+      throw new NotFoundException(`Pombo com ID "${id}" não encontrado.`);
+    }
+
+    return pombo;
   }
 
   update(id: number) {

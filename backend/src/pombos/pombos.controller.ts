@@ -27,7 +27,7 @@ export class PombosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.pombosService.findOne(+id);
+    return this.pombosService.findOne(id);
   }
 
   @Patch(':id')
