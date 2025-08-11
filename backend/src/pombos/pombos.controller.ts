@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PombosService } from './pombos.service';
 import { CreatePomboDto } from './dto/create-pombo.dto';
-import { UpdatePomboDto } from './dto/update-pombo.dto';
+// import { UpdatePomboDto } from './dto/update-pombo.dto';
 
 @Controller('pombos')
 export class PombosController {
@@ -23,8 +31,8 @@ export class PombosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePomboDto: UpdatePomboDto) {
-    return this.pombosService.update(+id, updatePomboDto);
+  update(@Param('id') id: string) {
+    return this.pombosService.update(+id);
   }
 
   @Delete(':id')
