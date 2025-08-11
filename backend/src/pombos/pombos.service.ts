@@ -1,11 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePomboDto } from './dto/create-pombo.dto';
-import { UpdatePomboDto } from './dto/update-pombo.dto';
+import { Pombo } from './entities/pombo.entity';
 
 @Injectable()
 export class PombosService {
-  create(createPomboDto: CreatePomboDto) {
-    return 'This action adds a new pombo';
+  constructor(
+    @InjectRepository(Pombo)
+    private readonly pombosRepository: Repository<Pombo>,
+  ) {}
+
+  // DTO para criar e salvar um novo pombo no BD
+  create(createPomboDto: CreatePomboDto): Promise<Pombo> {
+    const pombo = this.pombosRepository.create(createPomboDto);
+    return this.pombosRepository.save(pombo);
   }
 
   findAll() {
@@ -16,7 +25,7 @@ export class PombosService {
     return `This action returns a #${id} pombo`;
   }
 
-  update(id: number, updatePomboDto: UpdatePomboDto) {
+  update(id: number /*, updatePomboDto: UpdatePomboDto*/) {
     return `This action updates a #${id} pombo`;
   }
 
