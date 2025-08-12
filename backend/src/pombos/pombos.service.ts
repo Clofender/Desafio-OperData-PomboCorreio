@@ -53,7 +53,9 @@ export class PombosService {
     return this.pombosRepository.save(pombo);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pombo`;
+  async remove(id: string): Promise<void> {
+    const pombo = await this.findOne(id);
+
+    await this.pombosRepository.remove(pombo);
   }
 }

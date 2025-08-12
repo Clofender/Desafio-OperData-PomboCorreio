@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { PombosService } from './pombos.service';
 import { CreatePomboDto } from './dto/create-pombo.dto';
@@ -41,7 +42,8 @@ export class PombosController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   remove(@Param('id') id: string) {
-    return this.pombosService.remove(+id);
+    return this.pombosService.remove(id);
   }
 }
