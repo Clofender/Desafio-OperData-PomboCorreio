@@ -35,6 +35,11 @@ export class PombosController {
     return this.pombosService.update(id, updatePomboDto);
   }
 
+  @Patch(':id/retire')
+  retire(@Param('id') id: string) {
+    return this.pombosService.retire(id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.pombosService.remove(+id);

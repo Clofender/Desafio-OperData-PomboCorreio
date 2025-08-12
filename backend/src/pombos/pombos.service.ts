@@ -46,6 +46,13 @@ export class PombosService {
     return this.pombosRepository.save(pombo);
   }
 
+  async retire(id: string): Promise<Pombo> {
+    const pombo = await this.findOne(id);
+
+    pombo.estaAtivo = false;
+    return this.pombosRepository.save(pombo);
+  }
+
   remove(id: number) {
     return `This action removes a #${id} pombo`;
   }
