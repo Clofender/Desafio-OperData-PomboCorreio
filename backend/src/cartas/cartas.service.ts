@@ -4,7 +4,6 @@ import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { Pombo } from 'src/pombos/entities/pombo.entity';
 import { Repository } from 'typeorm';
 import { CreateCartaDto } from './dto/create-carta.dto';
-import { UpdateCartaDto } from './dto/update-carta.dto';
 import { Carta } from './entities/carta.entity';
 
 @Injectable()
@@ -63,7 +62,7 @@ export class CartasService {
     return `This action returns a #${id} carta`;
   }
 
-  update(id: number, _updateCartaDto: UpdateCartaDto) {
+  update(id: number) {
     return `This action updates a #${id} carta`;
   }
 
