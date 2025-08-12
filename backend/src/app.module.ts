@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PombosModule } from './pombos/pombos.module';
+import { ClientesModule } from './clientes/clientes.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PombosModule } from './pombos/pombos.module';
       synchronize: true,
     }),
     PombosModule,
+    ClientesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
