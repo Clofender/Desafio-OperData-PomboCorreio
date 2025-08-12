@@ -8,6 +8,8 @@ export interface Pombo {
   estaAtivo: boolean;
 }
 
+export type PomboCreateData = Omit<Pombo, 'id' | 'estaAtivo'>;
+
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
@@ -15,5 +17,10 @@ const apiClient = axios.create({
 // buscar a lista de pombos na API
 export const getPombos = async (): Promise<Pombo[]> => {
   const response = await apiClient.get('/pombos');
+  return response.data;
+};
+
+export const createPombo = async (pomboData: PomboCreateData): Promise<Pombo> => {
+  const response = await apiClient.post('/pombos', pomboData);
   return response.data;
 };
