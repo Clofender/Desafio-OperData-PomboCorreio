@@ -1,9 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
 import { Pombo } from 'src/pombos/entities/pombo.entity';
 import { Repository } from 'typeorm';
 import { CreateCartaDto } from './dto/create-carta.dto';
+import { UpdateCartaStatusDto } from './dto/update-carta-status.dto';
 import { Carta } from './entities/carta.entity';
 
 @Injectable()
@@ -58,8 +63,33 @@ export class CartasService {
     return `This action returns all cartas`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} carta`;
+  async findOne(id: string): Promise<Carta> {
+    const carta = await this.cartasRepository.findOne({
+      where: { id },
+      relations: ['remetente', 'pombo'], // Carrega os dados do remetente e do pombo
+    });
+
+    if (!carta) {
+      throw new NotFoundException(`Carta com ID "${id}" não encontrada.`);
+    }
+    return carta;
+  }
+
+  async updateStatus(
+    id: string,
+    updateCartaStatusDto: UpdateCartaStatusDto,
+  ): Promise<Carta> {
+    const carta = await this.findOne(id);
+
+    // impede a alteração se já foi entregue
+    if (carta.status === 'entregue') {
+      throw new BadRequestException(
+        'Uma carta entregue não pode ter seu status alterado.',
+      );
+    }
+
+    Object.assign(carta, updateCartaStatusDto);
+    return this.cartasRepository.save(carta);
   }
 
   update(id: number) {

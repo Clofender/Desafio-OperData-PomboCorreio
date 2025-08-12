@@ -1,15 +1,7 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { CartasService } from './cartas.service';
 import { CreateCartaDto } from './dto/create-carta.dto';
-import { UpdateCartaDto } from './dto/update-carta.dto';
+import { UpdateCartaStatusDto } from './dto/update-carta-status.dto';
 
 @Controller('cartas')
 export class CartasController {
@@ -20,23 +12,28 @@ export class CartasController {
     return this.cartasService.create(createCartaDto);
   }
 
-  @Get()
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.cartasService.findOne(id);
+  }
+
+  @Patch(':id/status')
+  updateStatus(
+    @Param('id') id: string,
+    @Body() updateCartaStatusDto: UpdateCartaStatusDto,
+  ) {
+    return this.cartasService.updateStatus(id, updateCartaStatusDto);
+  }
+
   findAll() {
     return this.cartasService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cartasService.findOne(+id);
+  update(id: number) {
+    return this.cartasService.update(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartaDto: UpdateCartaDto) {
-    return this.cartasService.update(+id, updateCartaDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cartasService.remove(+id);
+  remove(id: number) {
+    return this.cartasService.remove(id);
   }
 }
