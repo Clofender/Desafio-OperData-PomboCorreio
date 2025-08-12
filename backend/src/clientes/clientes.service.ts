@@ -47,7 +47,9 @@ export class ClientesService {
     return this.clientesRepository.save(cliente);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cliente`;
+  async remove(id: string): Promise<void> {
+    const cliente = await this.findOne(id);
+
+    await this.clientesRepository.remove(cliente);
   }
 }
