@@ -9,6 +9,7 @@ export interface Pombo {
 }
 
 export type PomboCreateData = Omit<Pombo, 'id' | 'estaAtivo'>;
+export type PomboUpdateData = Partial<PomboCreateData>;
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
@@ -30,5 +31,13 @@ export const deletePombo = async (id: string): Promise<void> => {
 
 export const retirePombo = async (id: string): Promise<Pombo> => {
   const response = await apiClient.patch(`/pombos/${id}/retire`);
+  return response.data;
+};
+
+export const updatePombo = async (
+  id: string,
+  pomboData: PomboUpdateData,
+): Promise<Pombo> => {
+  const response = await apiClient.patch(`/pombos/${id}`, pomboData);
   return response.data;
 };

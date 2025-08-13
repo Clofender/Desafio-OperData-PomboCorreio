@@ -1,16 +1,33 @@
 import { useState, useEffect } from 'react';
-import { type Pombo, getPombos, deletePombo, retirePombo } from '../services/pombo.service';
+import {
+  type Pombo,
+  getPombos,
+  deletePombo,
+  retirePombo,
+} from '../services/pombo.service';
 import { PomboForm } from '../components/PomboForm';
 
 export function PombosPage() {
   const [pombos, setPombos] = useState<Pombo[]>([]);
+  const [pomboToEdit, setPomboToEdit] = useState<Pombo | null>(null);
 
   useEffect(() => {
     getPombos().then(setPombos).catch(console.error);
   }, []);
 
-  const handlePomboCreated = (novoPombo: Pombo) => {
-    setPombos((pombosAnteriores) => [...pombosAnteriores, novoPombo]);
+  const handleSuccess = (pomboAtualizadoOuNovo: Pombo) => {
+    if (pomboToEdit) {
+      // Se estava editando, atualiza o item na lista
+      setPombos(
+        pombos.map((p) =>
+          p.id === pomboAtualizadoOuNovo.id ? pomboAtualizadoOuNovo : p,
+        ),
+      );
+    } else {
+      // Se estava criando, adiciona o novo item à lista
+      setPombos((pombosAnteriores) => [...pombosAnteriores, pomboAtualizadoOuNovo]);
+    }
+    setPomboToEdit(null); // Limpa o modo de edição
   };
 
   const handleDelete = async (pomboId: string) => {
@@ -28,8 +45,8 @@ export function PombosPage() {
       const pomboAtualizado = await retirePombo(pomboId);
       setPombos(
         pombos.map((pombo) =>
-          pombo.id === pomboId ? pomboAtualizado : pombo
-        )
+          pombo.id === pomboId ? pomboAtualizado : pombo,
+        ),
       );
     } catch (error) {
       console.error('Erro ao aposentar pombo:', error);
@@ -39,7 +56,11 @@ export function PombosPage() {
 
   return (
     <div>
-      <PomboForm onPomboCreated={handlePomboCreated} />
+      <PomboForm
+        onSuccess={handleSuccess}
+        pomboToEdit={pomboToEdit}
+        onCancelEdit={() => setPomboToEdit(null)}
+      />
       <hr />
       <h2>Nossos Pombos-Correio</h2>
       <ul>
@@ -47,14 +68,17 @@ export function PombosPage() {
           <li key={pombo.id}>
             {pombo.apelido} - Velocidade: {pombo.velocidadeMedia} km/h
             {!pombo.estaAtivo && <strong> (Aposentado)</strong>}
-
-            <button onClick={() => handleRetire(pombo.id)} disabled={!pombo.estaAtivo}>
+            
+            <button onClick={() => setPomboToEdit(pombo)}>Editar</button>
+            
+            <button
+              onClick={() => handleRetire(pombo.id)}
+              disabled={!pombo.estaAtivo}
+            >
               Aposentar
             </button>
-            
-            <button onClick={() => handleDelete(pombo.id)}>
-              Remover
-            </button>
+
+            <button onClick={() => handleDelete(pombo.id)}>Remover</button>
           </li>
         ))}
       </ul>
