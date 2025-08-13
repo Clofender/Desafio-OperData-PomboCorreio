@@ -39,10 +39,7 @@ export function PomboForm({ onSuccess, pomboToEdit, onCancelEdit }: PomboFormPro
         const novoPombo = await createPombo(pomboData);
         onSuccess(novoPombo);
       }
-      // Limpa o formulário
-      setApelido('');
-      setFotoUrl('');
-      setVelocidade(0);
+      handleCancel(); 
     } catch (error) {
       console.error('Erro ao salvar pombo:', error);
       alert('Falha ao salvar pombo!');
@@ -50,29 +47,26 @@ export function PomboForm({ onSuccess, pomboToEdit, onCancelEdit }: PomboFormPro
   };
 
   const handleCancel = () => {
-    // Limpa o formulário e avisa a página pai para sair do modo de edição
     setApelido('');
     setFotoUrl('');
     setVelocidade(0);
     onCancelEdit();
   };
 
-
   return (
     <form onSubmit={handleSubmit}>
       <h3>{pomboToEdit ? `Editando: ${pomboToEdit.apelido}` : 'Cadastrar Novo Pombo'}</h3>
-      
-      {/* OS CAMPOS QUE ESTAVAM FALTANDO ESTÃO AQUI */}
-      <div>
-        <label>Apelido: </label>
+
+      <div className="form-group">
+        <label>Apelido:</label>
         <input type="text" value={apelido} onChange={(e) => setApelido(e.target.value)} required />
       </div>
-      <div>
-        <label>URL da Foto: </label>
+      <div className="form-group">
+        <label>URL da Foto:</label>
         <input type="text" value={fotoUrl} onChange={(e) => setFotoUrl(e.target.value)} required />
       </div>
-      <div>
-        <label>Velocidade Média (km/h): </label>
+      <div className="form-group">
+        <label>Velocidade Média (km/h):</label>
         <input type="number" value={velocidade} onChange={(e) => setVelocidade(parseFloat(e.target.value))} required />
       </div>
 

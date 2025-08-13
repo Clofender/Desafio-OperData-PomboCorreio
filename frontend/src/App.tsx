@@ -8,10 +8,11 @@ function App() {
   return (
     <div>
       <header>
-        <h1>Delivery Aéreo do Sr. Moraes Moreira</h1>
+        <h1>Delivery Aéreo</h1>
         <Navbar />
       </header>
-      <main>
+      
+      <main className="container">
         <Routes>
           <Route path="/" element={<PombosPage />} />
           <Route path="/pombos" element={<PombosPage />} />

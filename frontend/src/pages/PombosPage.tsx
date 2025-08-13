@@ -17,17 +17,15 @@ export function PombosPage() {
 
   const handleSuccess = (pomboAtualizadoOuNovo: Pombo) => {
     if (pomboToEdit) {
-      // Se estava editando, atualiza o item na lista
       setPombos(
         pombos.map((p) =>
           p.id === pomboAtualizadoOuNovo.id ? pomboAtualizadoOuNovo : p,
         ),
       );
     } else {
-      // Se estava criando, adiciona o novo item à lista
       setPombos((pombosAnteriores) => [...pombosAnteriores, pomboAtualizadoOuNovo]);
     }
-    setPomboToEdit(null); // Limpa o modo de edição
+    setPomboToEdit(null);
   };
 
   const handleDelete = async (pomboId: string) => {
@@ -63,22 +61,27 @@ export function PombosPage() {
       />
       <hr />
       <h2>Nossos Pombos-Correio</h2>
-      <ul>
-        {pombos.map((pombo) => (
-          <li key={pombo.id}>
-            {pombo.apelido} - Velocidade: {pombo.velocidadeMedia} km/h
-            {!pombo.estaAtivo && <strong> (Aposentado)</strong>}
-            
-            <button onClick={() => setPomboToEdit(pombo)}>Editar</button>
-            
-            <button
-              onClick={() => handleRetire(pombo.id)}
-              disabled={!pombo.estaAtivo}
-            >
-              Aposentar
-            </button>
 
-            <button onClick={() => handleDelete(pombo.id)}>Remover</button>
+      <ul className="item-list">
+        {pombos.map((pombo) => (
+          <li key={pombo.id} className="list-item">
+            <div className="list-item-info">
+              {pombo.apelido} - Velocidade: {pombo.velocidadeMedia} km/h
+              {!pombo.estaAtivo && <strong> (Aposentado)</strong>}
+            </div>
+
+            <div className="list-item-actions">
+              <button onClick={() => setPomboToEdit(pombo)}>Editar</button>
+
+              <button
+                onClick={() => handleRetire(pombo.id)}
+                disabled={!pombo.estaAtivo}
+              >
+                Aposentar
+              </button>
+
+              <button onClick={() => handleDelete(pombo.id)}>Remover</button>
+            </div>
           </li>
         ))}
       </ul>

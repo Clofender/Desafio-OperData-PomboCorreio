@@ -27,6 +27,13 @@ export function ClienteForm({ onSuccess, clienteToEdit, onCancelEdit }: ClienteF
       setEndereco(clienteToEdit.endereco);
     }
   }, [clienteToEdit]);
+  
+  const clearForm = () => {
+    setNome('');
+    setEmail('');
+    setDataNascimento('');
+    setEndereco('');
+  }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -36,25 +43,18 @@ export function ClienteForm({ onSuccess, clienteToEdit, onCancelEdit }: ClienteF
         const clienteData: ClienteUpdateData = { nome, email, dataNascimento, endereco };
         const clienteAtualizado = await updateCliente(clienteToEdit.id, clienteData);
         onSuccess(clienteAtualizado);
-
       } else {
         const clienteData: ClienteCreateData = { nome, email, dataNascimento, endereco };
         const novoCliente = await createCliente(clienteData);
         onSuccess(novoCliente);
       }
       clearForm();
+      onCancelEdit();
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);
       alert('Falha ao salvar cliente!');
     }
   };
-  
-  const clearForm = () => {
-    setNome('');
-    setEmail('');
-    setDataNascimento('');
-    setEndereco('');
-  }
 
   const handleCancel = () => {
     clearForm();
@@ -65,20 +65,20 @@ export function ClienteForm({ onSuccess, clienteToEdit, onCancelEdit }: ClienteF
     <form onSubmit={handleSubmit}>
       <h3>{clienteToEdit ? `Editando: ${clienteToEdit.nome}` : 'Cadastrar Novo Cliente'}</h3>
 
-      <div>
-        <label>Nome: </label>
+      <div className="form-group">
+        <label>Nome:</label>
         <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required />
       </div>
-      <div>
-        <label>Email: </label>
+      <div className="form-group">
+        <label>Email:</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
       </div>
-      <div>
-        <label>Data de Nascimento: </label>
+      <div className="form-group">
+        <label>Data de Nascimento:</label>
         <input type="date" value={dataNascimento} onChange={(e) => setDataNascimento(e.target.value)} required />
       </div>
-      <div>
-        <label>Endereço: </label>
+      <div className="form-group">
+        <label>Endereço:</label>
         <input type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} required />
       </div>
 

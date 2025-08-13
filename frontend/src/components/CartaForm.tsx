@@ -53,25 +53,11 @@ export function CartaForm({ onCartaCriada }: CartaFormProps) {
     }
   };
 
-  const formStyle: React.CSSProperties = {
-    padding: '16px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-  };
-
-  const formGroupStyle: React.CSSProperties = {
-    display: 'grid',
-    gridTemplateColumns: '150px 1fr',
-    gap: '8px',
-    marginBottom: '12px',
-    alignItems: 'center',
-  };
-
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
+    <form onSubmit={handleSubmit}>
       <h3>Enviar Nova Carta</h3>
       
-      <div style={formGroupStyle}>
+      <div className="form-group">
         <label>Remetente (Cliente):</label>
         <select name="remetenteId" value={formData.remetenteId} onChange={handleChange} required>
           <option value="">Selecione um cliente</option>
@@ -81,7 +67,7 @@ export function CartaForm({ onCartaCriada }: CartaFormProps) {
         </select>
       </div>
 
-      <div style={formGroupStyle}>
+      <div className="form-group">
         <label>Pombo-Correio:</label>
         <select name="pomboId" value={formData.pomboId} onChange={handleChange} required>
           <option value="">Selecione um pombo</option>
@@ -91,17 +77,17 @@ export function CartaForm({ onCartaCriada }: CartaFormProps) {
         </select>
       </div>
 
-      <div style={formGroupStyle}>
+      <div className="form-group">
         <label>Nome do Destinatário:</label>
         <input type="text" name="nomeDestinatario" value={formData.nomeDestinatario} onChange={handleChange} required />
       </div>
 
-      <div style={formGroupStyle}>
+      <div className="form-group">
         <label>Endereço do Destinatário:</label>
         <input type="text" name="enderecoDestinatario" value={formData.enderecoDestinatario} onChange={handleChange} required />
       </div>
 
-      <div style={formGroupStyle}>
+      <div className="form-group">
         <label>Mensagem:</label>
         <textarea name="conteudo" value={formData.conteudo} onChange={handleChange} required />
       </div>

@@ -1,0 +1,154 @@
+:root {
+  --cor-primaria: #ffc107;
+  --cor-secundaria: #0055a5;
+  --cor-acento: #ff6f00;
+  --cor-fundo: #f9f9f9;
+  --texto-principal: #212121;
+  --texto-secundario: #616161;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--texto-principal);
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1rem;
+  color: var(--cor-secundaria);
+}
+
+h1 {
+  color: var(--texto-principal);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 2rem 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+button {
+  background-color: var(--cor-acento);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 8px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+header h1 {
+  background-color: var(--cor-secundaria);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.navbar {
+  background: #f0f0f0;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--cor-secundaria);
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+form {
+  border: 1px solid #eee;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.form-group label {
+  font-weight: bold;
+  text-align: right;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.list-item-info {
+  flex-grow: 1; 
+}
+
+.list-item-actions {
+  flex-shrink: 0; 
+}
