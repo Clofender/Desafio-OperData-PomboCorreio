@@ -20,6 +20,10 @@ export type CartaCreateData = {
   pomboId: string;
 };
 
+export type UpdateCartaStatusData = {
+  status: string;
+};
+
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
@@ -31,5 +35,13 @@ export const getCartas = async (): Promise<Carta[]> => {
 
 export const createCarta = async (cartaData: CartaCreateData): Promise<Carta> => {
   const response = await apiClient.post('/cartas', cartaData);
+  return response.data;
+};
+
+export const updateCartaStatus = async (
+  id: string,
+  data: UpdateCartaStatusData,
+): Promise<Carta> => {
+  const response = await apiClient.patch(`/cartas/${id}/status`, data);
   return response.data;
 };

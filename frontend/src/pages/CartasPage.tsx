@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { type Carta, getCartas } from '../services/carta.service';
 import { CartaForm } from '../components/CartaForm';
+import { StatusUpdater } from '../components/StatusUpdater';
 
 export function CartasPage() {
   const [cartas, setCartas] = useState<Carta[]>([]);
@@ -16,12 +17,9 @@ export function CartasPage() {
   const handleCartaCriada = (novaCarta: Carta) => {
     setCartas((cartasAnteriores) => [...cartasAnteriores, novaCarta]);
   };
-
-  const listItemStyle = {
-    marginBottom: '16px',
-    padding: '8px',
-    border: '1px solid #eee',
-    borderRadius: '4px',
+  
+  const handleStatusUpdated = (cartaAtualizada: Carta) => {
+    setCartas(cartas.map(c => c.id === cartaAtualizada.id ? cartaAtualizada : c));
   };
 
   return (
@@ -30,16 +28,23 @@ export function CartasPage() {
       <hr />
       
       <h2>Cartas Enviadas</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="item-list">
         {cartas.map((carta) => (
-          <li key={carta.id} style={listItemStyle}>
-            <strong>Destinatário:</strong> {carta.nomeDestinatario} <br />
-            <strong>Status:</strong> {carta.status} <br />
-            <strong>Mensagem:</strong> {carta.conteudo} <br />
-            <hr style={{ margin: '8px 0' }} />
-            <small>
-              Enviada por: {carta.remetente.nome} | Pombo: {carta.pombo.apelido}
-            </small>
+          <li key={carta.id} className="list-item">
+            <div className="list-item-info">
+              <strong>Destinatário:</strong> {carta.nomeDestinatario} <br />
+              <strong>Status:</strong> {carta.status} <br />
+              <strong>Mensagem:</strong> {carta.conteudo} <br />
+              <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #eee' }}>
+                <small>
+                  Enviada por: {carta.remetente.nome} | Pombo: {carta.pombo.apelido}
+                </small>
+              </div>
+            </div>
+            
+            <div className="list-item-actions">
+              <StatusUpdater carta={carta} onStatusUpdated={handleStatusUpdated} />
+            </div>
           </li>
         ))}
       </ul>
