@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { type Carta, getCartas } from '../services/carta.service';
+import { CartaForm } from '../components/CartaForm';
 
 export function CartasPage() {
   const [cartas, setCartas] = useState<Carta[]>([]);
@@ -11,6 +12,10 @@ export function CartasPage() {
         console.error('Erro ao buscar cartas:', error);
       });
   }, []);
+  
+  const handleCartaCriada = (novaCarta: Carta) => {
+    setCartas((cartasAnteriores) => [...cartasAnteriores, novaCarta]);
+  };
 
   const listItemStyle = {
     marginBottom: '16px',
@@ -21,6 +26,9 @@ export function CartasPage() {
 
   return (
     <div>
+      <CartaForm onCartaCriada={handleCartaCriada} />
+      <hr />
+      
       <h2>Cartas Enviadas</h2>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {cartas.map((carta) => (

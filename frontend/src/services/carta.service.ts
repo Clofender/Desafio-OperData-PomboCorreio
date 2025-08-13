@@ -12,11 +12,24 @@ export interface Carta {
   pombo: Pombo;
 }
 
+export type CartaCreateData = {
+  conteudo: string;
+  enderecoDestinatario: string;
+  nomeDestinatario: string;
+  remetenteId: string;
+  pomboId: string;
+};
+
 const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
 export const getCartas = async (): Promise<Carta[]> => {
   const response = await apiClient.get('/cartas');
+  return response.data;
+};
+
+export const createCarta = async (cartaData: CartaCreateData): Promise<Carta> => {
+  const response = await apiClient.post('/cartas', cartaData);
   return response.data;
 };
