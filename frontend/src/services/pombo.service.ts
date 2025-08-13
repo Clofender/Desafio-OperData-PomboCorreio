@@ -14,7 +14,6 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-// buscar a lista de pombos na API
 export const getPombos = async (): Promise<Pombo[]> => {
   const response = await apiClient.get('/pombos');
   return response.data;
@@ -22,5 +21,14 @@ export const getPombos = async (): Promise<Pombo[]> => {
 
 export const createPombo = async (pomboData: PomboCreateData): Promise<Pombo> => {
   const response = await apiClient.post('/pombos', pomboData);
+  return response.data;
+};
+
+export const deletePombo = async (id: string): Promise<void> => {
+  await apiClient.delete(`/pombos/${id}`);
+};
+
+export const retirePombo = async (id: string): Promise<Pombo> => {
+  const response = await apiClient.patch(`/pombos/${id}/retire`);
   return response.data;
 };
