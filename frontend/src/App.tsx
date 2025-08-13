@@ -1,11 +1,11 @@
-import { ClientesPage } from './pages/ClientesPage';
+import { CartasPage } from './pages/CartasPage';
 
 function App() {
   return (
     <div>
       <h1>Delivery Aéreo do Sr. Moraes Moreira</h1>
       <hr />
-      <ClientesPage /> 
+      <CartasPage />
     </div>
   );
 }

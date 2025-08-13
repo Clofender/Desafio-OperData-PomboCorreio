@@ -59,8 +59,10 @@ export class CartasService {
     return this.cartasRepository.save(novaCarta);
   }
 
-  findAll() {
-    return `This action returns all cartas`;
+  findAll(): Promise<Carta[]> {
+    return this.cartasRepository.find({
+      relations: ['remetente', 'pombo'],
+    });
   }
 
   async findOne(id: string): Promise<Carta> {

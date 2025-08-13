@@ -12,6 +12,11 @@ export class CartasController {
     return this.cartasService.create(createCartaDto);
   }
 
+  @Get()
+  findAll() {
+    return this.cartasService.findAll();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.cartasService.findOne(id);
@@ -23,10 +28,6 @@ export class CartasController {
     @Body() updateCartaStatusDto: UpdateCartaStatusDto,
   ) {
     return this.cartasService.updateStatus(id, updateCartaStatusDto);
-  }
-
-  findAll() {
-    return this.cartasService.findAll();
   }
 
   update(id: number) {
