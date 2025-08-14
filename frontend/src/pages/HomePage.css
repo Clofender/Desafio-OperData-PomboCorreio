@@ -110,3 +110,27 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem; 
+  }
+
+  .hero-buttons {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .hero-button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .features-section h2 {
+    font-size: 2rem;
+  }
+}
