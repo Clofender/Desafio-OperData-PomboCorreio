@@ -1,5 +1,4 @@
 :root {
-  --cor-primaria: #ffc107;
   --cor-secundaria: #0055a5;
   --cor-acento: #0055a5;
   --cor-fundo: #f9f9f9;
@@ -25,12 +24,6 @@ h2,
 h3 {
   margin-bottom: 1rem;
   color: var(--cor-secundaria);
-}
-
-h1 {
-  color: var(--texto-principal);
-  text-align: center;
-  margin-bottom: 0.5rem;
 }
 
 hr {
@@ -78,9 +71,12 @@ header h1 {
 
 .navbar {
   background: #f0f0f0;
-  padding: 1rem;
-  text-align: center;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
   border-bottom: 1px solid #ddd;
+  align-items: center;
+  min-height: 60px;
 }
 
 .navbar a {
@@ -146,9 +142,93 @@ textarea {
 }
 
 .list-item-info {
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .list-item-actions {
-  flex-shrink: 0; 
+  flex-shrink: 0;
+}
+
+.hamburger-button {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--cor-secundaria);
+  cursor: pointer;
+}
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 210px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0px 8px rgba(0,0,0,0.15);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+  z-index: 100;
+  padding-top: 0;
+}
+
+.nav-mobile.open {
+  transform: translateX(0);
+}
+
+.nav-mobile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--cor-secundaria); 
+  border-bottom: 1px solid #eee;
+}
+
+.nav-mobile-header span {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white; 
+}
+
+.nav-mobile a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1rem 1.5rem;
+  color: var(--cor-secundaria);
+  text-decoration: none;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-mobile a:hover {
+  background-color: #f0f0f0;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+@media (max-width: 450px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .hamburger-button, .nav-mobile, .overlay {
+    display: block;
+  }
+
+  .navbar {
+    justify-content: flex-start;
+    padding: 0.5rem 1rem;
+  }
 }
