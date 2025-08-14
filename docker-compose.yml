@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3001:3000"
+    volumes:
+      - sqlite-data:/usr/src/app/
+      
+  frontend:
+    build:
+      context: ./frontend 
+    ports:
+      - "5173:80" 
+    depends_on: 
+      - backend
+
+volumes:
+  sqlite-data:
