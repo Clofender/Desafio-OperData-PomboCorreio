@@ -66,20 +66,25 @@ export function PombosPage() {
         {pombos.map((pombo) => (
           <li key={pombo.id} className="list-item">
             <div className="list-item-info">
-              {pombo.apelido} - Velocidade: {pombo.velocidadeMedia} km/h
-              {!pombo.estaAtivo && <strong> (Aposentado)</strong>}
+              <img
+                src={pombo.fotoUrl}
+                alt={pombo.apelido}
+                className="list-item-photo"
+              />
+              <div>
+                {pombo.apelido} - Velocidade: {pombo.velocidadeMedia} km/h
+                {!pombo.estaAtivo && <strong> (Aposentado)</strong>}
+              </div>
             </div>
 
             <div className="list-item-actions">
               <button onClick={() => setPomboToEdit(pombo)}>Editar</button>
-
               <button
                 onClick={() => handleRetire(pombo.id)}
                 disabled={!pombo.estaAtivo}
               >
                 Aposentar
               </button>
-
               <button onClick={() => handleDelete(pombo.id)}>Remover</button>
             </div>
           </li>

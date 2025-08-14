@@ -32,13 +32,15 @@ export function CartasPage() {
         {cartas.map((carta) => (
           <li key={carta.id} className="list-item">
             <div className="list-item-info">
-              <strong>Destinatário:</strong> {carta.nomeDestinatario} <br />
-              <strong>Status:</strong> {carta.status} <br />
-              <strong>Mensagem:</strong> {carta.conteudo} <br />
-              <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #eee' }}>
-                <small>
-                  Enviada por: {carta.remetente.nome} | Pombo: {carta.pombo.apelido}
-                </small>
+              <div>
+                <strong>Destinatário:</strong> {carta.nomeDestinatario} <br />
+                <strong>Status:</strong> {carta.status} <br />
+                <strong>Mensagem:</strong> {carta.conteudo} <br />
+                <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: '1px solid #eee' }}>
+                  <small>
+                    Enviada por: {carta.remetente.nome} | Pombo: {carta.pombo.apelido}
+                  </small>
+                </div>
               </div>
             </div>
             
